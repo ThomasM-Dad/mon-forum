@@ -1,0 +1,158 @@
+/* ==========================================================
+   CONVENTION : BEM
+   .bloc            composant autonome
+   .bloc__element   partie d'un bloc
+   .bloc--modifier  variante d'un bloc
+   Une seule classe par sélecteur, pas de chaînage.
+   ========================================================== */
+
+/* ==========================================================
+   1. VARIABLES : thème Forêt
+   Pour changer de thème, on ne modifie que ce bloc.
+   ========================================================== */
+:root {
+  --color-bg: #f3efe4;
+  --color-surface: #fbf8f0;
+  --color-primary: #1f4d3a;
+  --color-accent: #c98a2b;
+  --color-accent-hover: #b57a22;
+  --color-text: #22302a;
+  --color-text-muted: #5b6a60;
+  --color-on-primary: #f3efe4;
+  --color-on-accent: #2b1d05;
+  --color-border: #d9d2bf;
+
+  --radius: 8px;
+  --max-width: 1100px;
+
+  --space-sm: 0.75rem;
+  --space-md: 1.25rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+}
+
+/* ==========================================================
+   2. BASE (balises HTML uniquement, pas de classes)
+   ========================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+  color: var(--color-primary);
+}
+
+a {
+  color: var(--color-primary);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ==========================================================
+   3. BLOCS
+   ========================================================== */
+
+/* --- page : conteneur principal du contenu --- */
+.page {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+}
+
+.page--error {
+  padding-top: var(--space-xl);
+  text-align: center;
+}
+
+/* --- site-header : en-tête et menu --- */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.site-header__logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header__nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.site-header__link {
+  color: var(--color-on-primary);
+  text-decoration: none;
+}
+
+.site-header__link:hover {
+  text-decoration: underline;
+}
+
+/* --- btn : bouton --- */
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border-radius: var(--radius);
+  transition: background 0.15s;
+}
+
+.btn:hover {
+  background: var(--color-accent-hover);
+}
+
+/* --- hero : bandeau de la vitrine --- */
+.hero {
+  padding: var(--space-xl) var(--space-md);
+  text-align: center;
+}
+
+.hero__title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0 0 var(--space-sm);
+}
+
+.hero__text {
+  max-width: 60ch;
+  margin: 0 auto var(--space-lg);
+  color: var(--color-text-muted);
+}
+
+/* --- site-footer : pied de page --- */
+.site-footer {
+  padding: var(--space-md);
+  text-align: center;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+}
