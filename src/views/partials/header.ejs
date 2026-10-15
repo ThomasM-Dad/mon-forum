@@ -3,6 +3,14 @@
     <nav class="site-header__nav">
         <a href="/" class="site-header__link">Accueil</a>
         <a href="/forum" class="site-header__link">Forum</a>
-        <a href="/connexion" class="btn">Connexion / Inscription</a>
+
+        <% if (currentUser) { %>
+            <form class="site-header__logout" method="post" action="/logout">
+                <button class="site-header__button" type="submit">Déconnexion (<%= currentUser.pseudo %>)</button>
+            </form>
+        <% } else { %>
+            <a href="/login" class="site-header__link">Connexion</a>
+            <a href="/register" class="btn">Inscription</a>
+        <% } %>
     </nav>
 </header>

@@ -1,0 +1,36 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+
+<main class="page">
+  <section class="auth">
+    <h1 class="auth__title">Connexion</h1>
+
+    <% if (locals.flash) { %>
+      <p class="auth__flash auth__flash--<%= flash.type %>" role="status"><%= flash.message %></p>
+    <% } %>
+
+    <% if (error) { %>
+      <p class="auth-form__error auth-form__error--global" role="alert"><%= error %></p>
+    <% } %>
+
+    <form class="auth-form" method="post" action="/login">
+      <div class="auth-form__field">
+        <label class="auth-form__label" for="email">Email</label>
+        <input class="auth-form__input" type="email" id="email" name="email"
+               value="<%= values.email || '' %>" required autocomplete="email">
+      </div>
+
+      <div class="auth-form__field">
+        <label class="auth-form__label" for="password">Mot de passe</label>
+        <input class="auth-form__input" type="password" id="password" name="password"
+               required autocomplete="current-password">
+      </div>
+
+      <button class="btn auth-form__submit" type="submit">Se connecter</button>
+    </form>
+
+    <p class="auth__alt">Pas encore de compte ? <a href="/register">S'inscrire</a></p>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

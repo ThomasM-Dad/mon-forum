@@ -1,8 +1,8 @@
 require('dotenv').config();
 const assert = require('node:assert');
 const express = require('express');
-const sessionMiddleware = require('../config/session');
-const pool = require('../config/db');
+const sessionMiddleware = require('../src/config/session');
+const pool = require('../src/config/db');
 
 async function main() {
   const app = express();

@@ -1,9 +1,10 @@
 const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
-const { title } = require('process');
 const sessionMiddleware = require('./config/session');
 const loadUser = require('./middlewares/loadUser');
+const flash = require('./middlewares/flash');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -14,18 +15,22 @@ app.use(helmet());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Fichiers publics (CSS, JS client, images) : avant la session,
+// pour qu'ils ne déclenchent ni lecture de session ni requête SQL
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
 // Lecture des formulaires et du JSON
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(express.json({ limit: '10kb' }));
 
+// Session, utilisateur connecté, message flash
 app.use(sessionMiddleware);
 app.use(loadUser);
-
-// Fichiers publics (CSS, JS client, images)
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(flash);
 
 // Routes
 app.use('/', require('./routes/index.routes'));
+app.use(authRoutes);
 
 // 404 : aucune route ne correspond
 app.use((req, res) => {

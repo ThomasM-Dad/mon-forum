@@ -1,6 +1,6 @@
 require('dotenv').config();
-const pool = require('../config/db');
-const authService = require('../services/authService');
+const pool = require('../src/config/db');
+const authService = require('../src/services/authService');
 
 const testUser = {
   pseudo: 'test_user',

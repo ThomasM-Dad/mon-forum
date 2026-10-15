@@ -1,0 +1,51 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+
+<main class="page">
+  <section class="auth">
+    <h1 class="auth__title">Inscription</h1>
+
+    <form class="auth-form" method="post" action="/register">
+      <div class="auth-form__field">
+        <label class="auth-form__label" for="pseudo">Pseudo</label>
+        <input class="auth-form__input<%= errors.pseudo ? ' auth-form__input--invalid' : '' %>"
+               type="text" id="pseudo" name="pseudo"
+               value="<%= values.pseudo || '' %>"
+               required minlength="3" maxlength="30" autocomplete="username"
+               <% if (errors.pseudo) { %>aria-invalid="true" aria-describedby="pseudo-error"<% } %>>
+        <% if (errors.pseudo) { %>
+          <p class="auth-form__error" id="pseudo-error" role="alert"><%= errors.pseudo %></p>
+        <% } %>
+      </div>
+
+      <div class="auth-form__field">
+        <label class="auth-form__label" for="email">Email</label>
+        <input class="auth-form__input<%= errors.email ? ' auth-form__input--invalid' : '' %>"
+               type="email" id="email" name="email"
+               value="<%= values.email || '' %>"
+               required maxlength="255" autocomplete="email"
+               <% if (errors.email) { %>aria-invalid="true" aria-describedby="email-error"<% } %>>
+        <% if (errors.email) { %>
+          <p class="auth-form__error" id="email-error" role="alert"><%= errors.email %></p>
+        <% } %>
+      </div>
+
+      <div class="auth-form__field">
+        <label class="auth-form__label" for="password">Mot de passe</label>
+        <input class="auth-form__input<%= errors.password ? ' auth-form__input--invalid' : '' %>"
+               type="password" id="password" name="password"
+               required minlength="8" autocomplete="new-password"
+               <% if (errors.password) { %>aria-invalid="true" aria-describedby="password-error"<% } %>>
+        <% if (errors.password) { %>
+          <p class="auth-form__error" id="password-error" role="alert"><%= errors.password %></p>
+        <% } %>
+      </div>
+
+      <button class="btn auth-form__submit" type="submit">Créer mon compte</button>
+    </form>
+
+    <p class="auth__alt">Déjà inscrit ? <a href="/login">Se connecter</a></p>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>
