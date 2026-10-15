@@ -6,6 +6,8 @@
     <h1 class="auth__title">Inscription</h1>
 
     <form class="auth-form" method="post" action="/register">
+      <input type="hidden" name="_csrf" value="<%= csrfToken() %>">
+      
       <div class="auth-form__field">
         <label class="auth-form__label" for="pseudo">Pseudo</label>
         <input class="auth-form__input<%= errors.pseudo ? ' auth-form__input--invalid' : '' %>"

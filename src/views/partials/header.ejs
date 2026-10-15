@@ -4,8 +4,9 @@
         <a href="/" class="site-header__link">Accueil</a>
         <a href="/forum" class="site-header__link">Forum</a>
 
-        <% if (currentUser) { %>
+        <% if (locals.currentUser) { %>
             <form class="site-header__logout" method="post" action="/logout">
+                <input type="hidden" name="_csrf" value="<%= csrfToken() %>">
                 <button class="site-header__button" type="submit">Déconnexion (<%= currentUser.pseudo %>)</button>
             </form>
         <% } else { %>

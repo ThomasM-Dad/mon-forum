@@ -5,6 +5,7 @@ const sessionMiddleware = require('./config/session');
 const loadUser = require('./middlewares/loadUser');
 const flash = require('./middlewares/flash');
 const authRoutes = require('./routes/auth');
+const csrf = require('./middlewares/csrf');
 
 const app = express();
 
@@ -23,8 +24,9 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(express.json({ limit: '10kb' }));
 
-// Session, utilisateur connecté, message flash
+// Session, protection CSRF, utilisateur connecté, message flash
 app.use(sessionMiddleware);
+app.use(csrf);
 app.use(loadUser);
 app.use(flash);
 
@@ -37,8 +39,12 @@ app.use((req, res) => {
     res.status(404).render('pages/404', { title: 'Page introuvable' });
 });
 
-// 500 : erreur serveur (le détail reste dans la console, jamais affiché)
+// Erreurs : jeton CSRF refusé (403), sinon erreur serveur (500)
 app.use((err, req, res, next) => {
+    if (err.code === 'EBADCSRFTOKEN') {
+        return res.status(403).render('pages/403', { title: 'Requête refusée' });
+    }
+    // Le détail reste dans la console, jamais affiché
     console.error(err);
     res.status(500).render('pages/500', { title: 'Erreur serveur' });
 });
